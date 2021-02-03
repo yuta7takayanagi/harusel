@@ -13,7 +13,8 @@ def trim_image(img, pos, size):
 
 # 画像加工
 def process_image(img):
-    img_trim = trim_image(img, TRIM_POS, TRIM_SIZE)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_trim = trim_image(img_gray, TRIM_POS, TRIM_SIZE)
     img_med = cv2.medianBlur(img_trim, 75)
     img_res = cv2.resize(img_med, RES_SIZE)
     return img_res
