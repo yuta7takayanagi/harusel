@@ -19,14 +19,9 @@ test_labels = labels[train_cnt:]
 
 # モデルを構築
 model = models.Sequential([
-    layers.Conv2D(32, (3, 3), activation="relu", input_shape=(RES_SIZE[1], RES_SIZE[0], 3)),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation="relu"),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation="relu"),
-    layers.MaxPooling2D((2, 2)),
-    layers.Flatten(),
-    layers.Dense(64, activation="relu"),
+    layers.Flatten(input_shape=(RES_SIZE[0], 1)),
+    layers.Dense(512),
+    layers.Dropout(0.5),
     layers.Dense(1, activation="sigmoid")
 ])
 
@@ -39,6 +34,6 @@ model.compile(
 )
 
 # 学習
-model.fit(train_images, train_labels, epochs=20)
+model.fit(train_images, train_labels, epochs=10)
 model.evaluate(test_images, test_labels, verbose=2)
 model.save("model.h5")

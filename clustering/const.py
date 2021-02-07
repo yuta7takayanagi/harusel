@@ -1,4 +1,4 @@
 # 切り取り範囲
 TRIM_POS = (30, 750)
 TRIM_SIZE = (3000, 1200)
-RES_SIZE = (300, 120)
+RES_SIZE = (600, 240)
