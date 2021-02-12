@@ -5,17 +5,19 @@ import numpy as np
 import cv2
 
 from const import *
+from image import *
 
 THIS_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # データセットを作成
-def create_dataset(path_in, label):
+def create_dataset(path_in, label, process_func):
     images = []
     labels = []
 
-    for path in glob.glob(path_in + "/*.png"):
-        img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-        images.append(img)
+    for path in glob.glob(path_in + "/*"):
+        img = cv2.imread(path)
+        line = process_func(img)
+        images.append(line)
         labels.append(label)
 
     return (images, labels)
@@ -24,11 +26,11 @@ if __name__ == "__main__":
     images = []
     labels = []
 
-    datasets = create_dataset(THIS_PATH + "/2nd/normal", 0)
+    datasets = create_dataset(THIS_PATH + "/images/normal", 0, line_image)
     images += datasets[0]
     labels += datasets[1]
 
-    datasets = create_dataset(THIS_PATH + "/2nd/0.6", 1)
+    datasets = create_dataset(THIS_PATH + "/images/0.6", 1, line_image)
     images += datasets[0]
     labels += datasets[1]
 

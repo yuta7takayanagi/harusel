@@ -33,8 +33,13 @@ def process_images(path_in, process_func):
         print(process_func(img_org))
 
 if __name__ == "__main__":
-    img = cv2.imread(THIS_PATH + "/images/normal/017.jpg")
-    x = line_image(img)
+    lines = np.empty(0)
+    cnt = 0
 
-    for t in x:
-        print(t)
+    for path in glob.glob(THIS_PATH + "/images/*/*"):
+        img_org = cv2.imread(path)
+        lines = np.append(lines, line_image(img_org))
+        cnt += 1
+
+    lines = np.reshape(lines, (cnt, TRIM_SIZE[0])).T
+    np.savetxt(THIS_PATH + "/lines.csv", lines, delimiter=",")
