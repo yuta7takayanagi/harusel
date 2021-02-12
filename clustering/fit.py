@@ -3,8 +3,6 @@ import glob
 import cv2
 import numpy as np
 
-import sklearn.metrics as metrics
-
 from const import *
 from image import *
 
