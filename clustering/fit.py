@@ -17,15 +17,12 @@ def fit_image(img):
         r2 = np.corrcoef(x[i:], np.poly1d(p)(np.arange(x.size - i)))[0][1]
 
         if r2 >= 0.995:
-            print(p)
             return p[0]
 
     print("Error")
+    return None
 
 if __name__ == "__main__":
-    img = cv2.imread(THIS_PATH + "/images/normal/017.jpg")
-    fit_image(img)
-
-    # process_images(THIS_PATH + "/images/normal", fit_image)
-    # print()
-    # process_images(THIS_PATH + "/images/0.6", fit_image)
+    process_images(THIS_PATH + "/images/normal", fit_image)
+    print()
+    process_images(THIS_PATH + "/images/0.6", fit_image)
