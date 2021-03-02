@@ -13,8 +13,7 @@ def trim_image(img, pos, size):
 
 # 一次元化
 def line_image(img):
-    img_temp = trim_image(img, TRIM_POS, TRIM_SIZE)
-    x = sum(img_temp[:, :, i] for i in range(3)) / 765
+    x = sum(img[:, :, i] for i in range(3)) / 765
     x = np.sort(x, axis=0)
     x = np.mean(x[TRIM_SIZE[1] // 2 - 100 : TRIM_SIZE[1] // 2 + 100], axis=0)
     return x
@@ -38,7 +37,8 @@ if __name__ == "__main__":
 
     for path in glob.glob(THIS_PATH + "/images/*/*"):
         img_org = cv2.imread(path)
-        lines = np.append(lines, line_image(img_org))
+        img_temp = trim_image(img_org, TRIM_POS, TRIM_SIZE)
+        lines = np.append(lines, line_image(img_temp))
         cnt += 1
 
     lines = np.reshape(lines, (cnt, TRIM_SIZE[0])).T
