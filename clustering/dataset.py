@@ -15,8 +15,9 @@ def create_dataset(path_in, label, process_func):
     labels = []
 
     for path in glob.glob(path_in + "/*"):
-        img = cv2.imread(path)
-        line = process_func(img)
+        img_org = cv2.imread(path)
+        img_temp = trim_image(img_org, TRIM_POS, TRIM_SIZE)
+        line = process_func(img_temp)
         images.append(line)
         labels.append(label)
 
