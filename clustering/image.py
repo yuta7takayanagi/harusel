@@ -13,9 +13,17 @@ def trim_image(img, pos, size):
 
 # 一次元化
 def line_image(img):
-    x = sum(img[:, :, i] for i in range(3)) / 765
-    x = np.sort(x, axis=0)
-    x = np.mean(x[TRIM_SIZE[1] // 2 - 100 : TRIM_SIZE[1] // 2 + 100], axis=0)
+    n = 10
+    t = sum(img[:, :, i] for i in range(3)) / 765
+    x = np.zeros(TRIM_SIZE[0])
+
+    for i in range(n):
+        l = TRIM_SIZE[1] * i // n
+        r = TRIM_SIZE[1] * (i + 1) // n
+        x = x + np.median(t[l:r], axis=0)
+
+    x = x / n
+
     return x
 
 # 画像加工して保存

@@ -17,12 +17,20 @@ def fit_image(img):
         r2 = np.corrcoef(x[i:], np.poly1d(p)(np.arange(x.size - i)))[0][1]
 
         if r2 >= 0.995:
-            return p[0]
+            return p
 
     print("Error")
     return None
 
 if __name__ == "__main__":
-    process_images(THIS_PATH + "/images/normal", fit_image)
-    print()
-    process_images(THIS_PATH + "/images/0.6", fit_image)
+    curves = np.empty(0)
+    cnt = 0
+
+    for path in glob.glob(THIS_PATH + "/images/*/*"):
+        img_org = cv2.imread(path)
+        img_temp = trim_image(img_org, TRIM_POS, TRIM_SIZE)
+        curves = np.append(curves, fit_image(img_temp))
+        cnt += 1
+
+    curves = np.reshape(curves, (cnt, 3)).T
+    np.savetxt(THIS_PATH + "/curves.csv", curves, delimiter=",")
