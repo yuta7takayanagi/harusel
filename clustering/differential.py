@@ -21,7 +21,7 @@ def differential_2nd(img):
 # 一次元化
 def differential_line(img):
     x = sum(img[:, :, i] for i in range(3)) / 765
-    x = np.mean(x, axis=0)
+    x = np.median(x, axis=0)
     # x = np.sort(x, axis=0)
     # x = np.mean(x[TRIM_SIZE[1] // 2 - 100 : TRIM_SIZE[1] // 2 + 100], axis=0)
     return x
