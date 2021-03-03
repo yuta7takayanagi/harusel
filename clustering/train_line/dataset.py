@@ -10,6 +10,8 @@ sys.path.append(THIS_PATH + "/../")
 
 from const import *
 from image import *
+from fit import *
+
 
 # データセットを作成
 def create_dataset(path_in, label, process_func):
